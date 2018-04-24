@@ -2,12 +2,12 @@ import { _, partial } from "../src/partial";
 
 describe("01-fp", () => {
   describe("Partial Function Application", () => {
-    it.skip("should invoke partial version of nullary(): nullary()", () => {
+    it("should invoke partial version of nullary(): nullary()", () => {
       const nullary = partial(() => 777);
       nullary().should.eql(777);
     });
 
-    it.skip("should invoke partial version of unary(a): unary(_)", () => {
+    it("should invoke partial version of unary(a): unary(_)", () => {
       const unary = partial(a => a);
       const partialUnary = unary(_);
       partialUnary(21).should.eql(21);

@@ -7,5 +7,40 @@
  * - `curry` is a pure function!
  * - Has auto currying after initial call
  */
-export function curry() {
+
+export function curry(fn, ...a) { 
+  return function c(...a) {
+  
+    if (a.length >= fn.length) {
+      return fn.apply(fn, a);
+    } else {
+      return function(...b) {
+        return c.apply(fn, a.concat(b));
+      }
+    }
+  };
 }
+/*
+export function curry(fn, numArgs, ...a) {  
+  return (...a) => {
+    function c(fn, len, ...a){
+      console.log(a);
+      if (a.length < 1) {    
+        return fn();
+      }
+
+      console.log(a.length);
+      len -= a.length;
+
+      if (len === 0) {
+        return fn.apply(fn, a);
+      }
+
+      const auto = (...b) => fn.apply(fn, a.concat(b))
+          
+      return (...b) => c(auto, len, ...b);
+    }
+    console.log(a);
+    return c(fn, numArgs, ...a);
+  }
+}*/

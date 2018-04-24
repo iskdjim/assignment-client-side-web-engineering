@@ -6,7 +6,12 @@
  * - Works with positive integers ℤ+!
  * - Throws an error if exponent is invalid
  */
-export function pow() {
+export function pow(a,b) {
+    if(b % 1 !== 0 || b < 1) {
+        throw "error";
+    }
+    
+    return new Array(b).fill(a).reduce((product, factor) => factor*product);
 }
 
 /*
@@ -16,5 +21,15 @@ export function pow() {
  * - Provides a primer for complex fields
  * - Throws an error if arguments are invalid
  */
-export function sortBy() {
+export function sortBy(field, primer) { 
+    var key = (x) => { return (primer ? primer(x[field]) : x[field]); };
+        return function (y,z) {
+            return ( (key(y) < key(z)) ? -1 : ((key(y) > key(z)) ? 1 : 0));
+        }
 }
+
+/*
+export function sortBy(type, ...rest) { 
+    return (a, b) =>  { return a[type] > b[type] } 
+}
+*/

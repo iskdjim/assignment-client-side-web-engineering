@@ -9,4 +9,10 @@
  */
 export const _ = undefined;
 
-export function partial() {}
+export function partial(fn, _, ...a) {
+    var args = Array.prototype.slice.call(a);
+    return function() {
+      return fn.apply(this, args.concat(
+        Array.prototype.slice.call(a)));
+};
+}
