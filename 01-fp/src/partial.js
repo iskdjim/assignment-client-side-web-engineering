@@ -9,10 +9,15 @@
  */
 export const _ = undefined;
 
-export function partial(fn, _, ...a) {
-    var args = Array.prototype.slice.call(a);
-    return function() {
-      return fn.apply(this, args.concat(
-        Array.prototype.slice.call(a)));
-};
+export function partial(fn) {
+  return function recursive(...a) {
+    if (a.length === 0) {
+      return fn();
+    }
+    return (...b) => {
+      const args = a.concat(b).filter(c => c !== _);
+      return (args.length >= fn.length) ? fn(...args) : recursive(...args);
+      
+    };
+  };
 }

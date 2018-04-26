@@ -10,7 +10,6 @@
 
 export function curry(fn, ...a) { 
   return function c(...a) {
-  
     if (a.length >= fn.length) {
       return fn.apply(fn, a);
     } else {
@@ -20,6 +19,7 @@ export function curry(fn, ...a) {
     }
   };
 }
+
 /*
 export function curry(fn, numArgs, ...a) {  
   return (...a) => {
