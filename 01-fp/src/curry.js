@@ -8,9 +8,9 @@
  * - Has auto currying after initial call
  */
 
-export function curry(fn, ...a) { 
+export function curry(fn, numArgs = fn.length, ...a) { 
   return function c(...a) {
-    if (a.length >= fn.length) {
+    if (a.length >= numArgs) {
       return fn.apply(fn, a);
     } else {
       return function(...b) {
