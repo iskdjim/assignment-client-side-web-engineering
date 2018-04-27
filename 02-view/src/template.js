@@ -16,7 +16,6 @@
 const MATCH_ELEMENT = /<([a-z][a-z0-9]*\b[^>]*)>(.*?)<\/\1>/g;
 const MATCH_VARIABLE = /^\{\{(.+)\}\}$/;
 
-const template_v1 = "<h1>{{title}}</h1>";
 
 const elements = new Map();
 const variables = new Map();
@@ -52,4 +51,5 @@ export function build(template_v1){
 }
 /*
 const template = build();
-const {el, update} = template({title: 'Hello, World!'});*/
+const {el, update} = template({title: 'Hello, World!'});
+*/
