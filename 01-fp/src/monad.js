@@ -26,7 +26,7 @@ export function d() {
       this[method] = function(...args) {
         return fn.apply(this, args) 
       }
-      return this
+      return monad
     }
     return monad
 }

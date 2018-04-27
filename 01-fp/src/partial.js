@@ -17,7 +17,6 @@ export function partial(fn) {
     return (...b) => {
       const args = a.concat(b).filter(c => c !== _);
       return (args.length >= fn.length) ? fn(...args) : recursive(...args);
-      
     };
   };
 }
