@@ -23,9 +23,7 @@ function parser(template_string) {
     let tag;
     while (tag = MATCH_ELEMENT.exec(template_string)) {
         if (tag) {
-            
             elements.set(tag[1], document.createElement(tag[1]));
-            
             parser(tag[2])
             let variable = MATCH_VARIABLE.exec(tag[2]);
             if(variable) {
@@ -45,30 +43,18 @@ export function build(template_v1){
         let counter = 0;
         for(let e of elements){
             counter++;
-            //onsole.log(elemnts);
             if(elements.size === counter) {
                 const textNode = document.createTextNode(obj[variables.get(e[0])]);
                 e[1].appendChild(textNode);
             }
-            if (ele) {
-                ele.appendChild(e[1]);
-            } else {
-             
-                ele = e[1];
-            }
-
-            
+            (ele) ? ele.appendChild(e[1]) : ele = e[1];
         }
       
         const update = (data) => {
             let key = Array.from(elements.keys())[elements.size-1];   
             let e = elements.get(key); 
-            
             e.textContent = data[variables.get(key)];
-        
           }
-
         return {el: ele, update};
     }
-   
 }
