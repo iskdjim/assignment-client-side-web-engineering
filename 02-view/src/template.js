@@ -21,35 +21,54 @@ const elements = new Map();
 const variables = new Map();
 function parser(template_string) {
     let tag;
-    do {
-        console.log(template_string);
-        tag = MATCH_ELEMENT.exec(template_string);
-        console.log('--------')
-        console.log(tag);
+    while (tag = MATCH_ELEMENT.exec(template_string)) {
         if (tag) {
-            console.log(tag);
             
             elements.set(tag[1], document.createElement(tag[1]));
-            variables.set(tag[1], tag[2]);
+            
+            parser(tag[2])
+            let variable = MATCH_VARIABLE.exec(tag[2]);
+            if(variable) {
+                variables.set(tag[1],variable[1]);
+            }
         
             template_string = tag[2]
         }
-    }  while (tag)
+    } 
+    return elements
 }
 
 export function build(template_v1){
     parser(template_v1);
     return function(obj) {
-        console.log(variables);
-        const ele = document.createTextNode(obj.title);
-        const h1 = elements.get('h1');
-        h1.appendChild(ele);
+        let ele;
+        let counter = 0;
+        for(let e of elements){
+            counter++;
+            //onsole.log(elemnts);
+            if(elements.size === counter) {
+                const textNode = document.createTextNode(obj[variables.get(e[0])]);
+                e[1].appendChild(textNode);
+            }
+            if (ele) {
+                ele.appendChild(e[1]);
+            } else {
+             
+                ele = e[1];
+            }
 
-        return {el: h1};
+            
+        }
+      
+        const update = (data) => {
+            let key = Array.from(elements.keys())[elements.size-1];   
+            let e = elements.get(key); 
+            
+            e.textContent = data[variables.get(key)];
+        
+          }
+
+        return {el: ele, update};
     }
    
 }
-/*
-const template = build();
-const {el, update} = template({title: 'Hello, World!'});
-*/
