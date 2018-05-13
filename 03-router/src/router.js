@@ -28,3 +28,25 @@
  * Start:
  * - page()
  */
+
+
+const createRouter = function() {
+    const routes = []
+    let window
+
+    function router(path, callback){
+        if(typeof path === "object"){
+            window = path.window
+            window.onpopstate = redirectRoute();
+        }
+    }
+
+    function redirectRoute(){
+      return router.error = new Error("error")
+    }
+  
+  return router
+}
+
+
+export {createRouter}
