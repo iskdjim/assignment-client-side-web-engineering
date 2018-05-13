@@ -17,7 +17,7 @@ describe("03-router", () => {
       router.error.should.be.an.Error();
     });
 
-    it.skip("should create and start router with default route", () => {
+    it("should create and start router with default route", () => {
       const { dom, window } = createWindow({
         url: `${BASE_URL}/`
       });
@@ -31,7 +31,7 @@ describe("03-router", () => {
   });
 
   describe("static", () => {
-    it.skip("should create and start router with home route: /", () => {
+    it("should create and start router with home route: /", () => {
       const { dom, window } = createWindow({
         url: `${BASE_URL}/`
       });
@@ -46,7 +46,7 @@ describe("03-router", () => {
       changeLocation(dom, `${BASE_URL}/`);
     });
 
-    it.skip("should create and start router with static route: /home", () => {
+    it("should create and start router with static route: /home", () => {
       const { dom, window } = createWindow({
         url: `${BASE_URL}/`
       });
@@ -59,7 +59,7 @@ describe("03-router", () => {
       router.current.should.eql("/home");
     });
 
-    it.skip("should create and start router with two static routes: / and /home", () => {
+    it("should create and start router with two static routes: / and /home", () => {
       const { dom, window } = createWindow({
         url: `${BASE_URL}/`
       });
