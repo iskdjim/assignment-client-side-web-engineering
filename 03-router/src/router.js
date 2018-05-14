@@ -49,7 +49,7 @@ const createRouter = function() {
         if (path !== '*') {
           routes.push({
             path,
-            method: callback,
+            method: callback(callback),
             regex: new RegExp(`^${path}$`)
           })
         }

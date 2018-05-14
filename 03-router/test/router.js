@@ -75,7 +75,7 @@ describe("03-router", () => {
       router.current.should.eql("/");
     });
 
-    it.skip("should invoke function for route: /home", done => {
+    it("should invoke function for route: /home", done => {
       const { dom, window } = createWindow({
         url: `${BASE_URL}/`
       });
