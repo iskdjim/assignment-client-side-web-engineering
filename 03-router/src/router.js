@@ -38,7 +38,7 @@ const createRouter = function() {
     function router(path, callback){
       if(typeof path === "object"){ 
         window = path.window
-        window.addEventListener("popstate", () => redirectRoute())
+        window.addEventListener("popstate", () => redirectRoute(window.location.pathname))
 
         routes.forEach(route => {
           if (route.path == "/") {
@@ -56,13 +56,13 @@ const createRouter = function() {
       }
     }
 
-    function redirectRoute(pathname = window.location.pathname){
+    function redirectRoute(name){
       if (routes && routes.length == 0) {
         return router.error = new Error("error") 
       }
    
       routes.forEach(route => {
-        if (route.regex.test(pathname)) {
+        if (route.regex.test(name)) {
            router.current = route.path
         }
       });
