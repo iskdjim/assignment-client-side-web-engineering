@@ -29,7 +29,7 @@
  * - page()
  */
 
-let window
+let window, document, history;
 
 const createRouter = function() {
     const routes = []
@@ -38,21 +38,22 @@ const createRouter = function() {
     function router(path, callback){
       if(typeof path === "object"){ 
         window = path.window
+        document = window.document
+        history = window.history
         window.addEventListener("popstate", () => redirectRoute(window.location.pathname))
-
+        document.addEventListener("click", clickHandler)
+    
         routes.forEach(route => {
           if (route.path == "/") {
             redirectRoute(route.path);
           }
         });
       } else {
-        if (path !== '*') {
           routes.push({
             path,
             method: callback(callback),
-            regex: new RegExp(`^${path}$`)
+            regex: new RegExp(`^${path.replace(/:[a-z]+/g, "([a-zA-Z0-9]+)")}$`)
           })
-        }
       }
     }
 
@@ -60,13 +61,23 @@ const createRouter = function() {
       if (routes && routes.length == 0) {
         return router.error = new Error("error") 
       }
-   
+
       routes.forEach(route => {
         if (route.regex.test(name)) {
-           router.current = route.path
+          router.current = route.path
+          if (router.current !== document.location.pathname) {
+            history.pushState({}, '', route.path);
+  }
         }
       });
      
+    }
+
+    function clickHandler(e){
+      let target = e.target;
+      if (document.location.host == target.host && !target.download && !target.rel && !target.target)  {
+        redirectRoute(target.pathname)
+      }
     }
   
   return router
