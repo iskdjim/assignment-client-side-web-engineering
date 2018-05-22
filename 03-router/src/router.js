@@ -67,7 +67,7 @@ const createRouter = function() {
           router.current = route.path
           if (router.current !== document.location.pathname) {
             history.pushState({}, '', route.path);
-  }
+          } 
         }
       });
      
@@ -75,7 +75,7 @@ const createRouter = function() {
 
     function clickHandler(e){
       let target = e.target;
-      if (document.location.host == target.host && !target.download && !target.rel && !target.target)  {
+      if (document.location.hostname == target.hostname && !target.download && !target.rel && !target.target)  {
         redirectRoute(target.pathname)
       }
     }
